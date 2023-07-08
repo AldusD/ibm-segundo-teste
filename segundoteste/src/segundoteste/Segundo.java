@@ -38,13 +38,14 @@ public class Segundo {
     }
 
     public int iniciarProcesso(String nome) throws Exception {
-        if (nome.isEmpty()) throw new Exception("Nome inválido");
+        final String nomeIsolado = nome.trim();
+        if (nomeIsolado.isEmpty()) throw new Exception("Nome inválido");
 
-        final Optional<Candidatura> verificaNome = encontraCandidatoPeloNome(nome);
+        final Optional<Candidatura> verificaNome = encontraCandidatoPeloNome(nomeIsolado);
         if (!verificaNome.isEmpty()) throw new Exception("Candidato já participa do processo");
 
         final int id = this.gerarId();
-        Candidatura candidato = new Candidatura(id, nome, "Recebido");
+        Candidatura candidato = new Candidatura(id, nomeIsolado, "Recebido");
         this.candidatos.add(candidato);
         return id;
     }
